@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from async_pubmed_scraper import PubMedScraper, parse_args
+import numpy as np
+import pandas as pd
 
 def app():
     st.title("Asynchronous PubMed Scraper")
