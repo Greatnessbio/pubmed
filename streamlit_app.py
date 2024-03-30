@@ -2,6 +2,14 @@ import streamlit as st
 import pandas as pd
 from async_pubmed_scraper import PubMedScraper, parse_args
 
+
+# Update the requirements.txt file path if necessary
+requirements_file = "requirements.txt"
+
+# Install the dependencies from the updated requirements.txt file
+import subprocess
+subprocess.call(["pip", "install", "-r", requirements_file])
+
 def app():
     st.title("Asynchronous PubMed Scraper")
 
