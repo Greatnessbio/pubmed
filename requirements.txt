@@ -2,7 +2,7 @@ aiohttp==3.6.2
 asyncio==3.4.3
 beautifulsoup4==4.9.1
 bs4==0.0.1
-https://files.pythonhosted.org/packages/16/4c/5f2091fc917c8982ffca08943981d6773fe8053b27e82718fa4de9d82ca1/lxml-4.5.2-cp311-cp311-manylinux2014_x86_64.whl
+lxml==4.9.2
 numpy==1.19.2
 pandas==1.1.2
 requests==2.24.0
