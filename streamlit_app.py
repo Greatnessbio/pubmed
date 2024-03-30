@@ -1,10 +1,7 @@
 import streamlit as st
-import pandas as pd
 from async_pubmed_scraper import PubMedScraper, parse_args
-import numpy as np
-import pandas as pd
 
-def app():
+def main():
     st.title("Asynchronous PubMed Scraper")
 
     # Get user input
@@ -29,12 +26,8 @@ def app():
         scraper = PubMedScraper(args)
         data = scraper.run()
 
-        # Convert the data to a Pandas DataFrame
-        df = pd.DataFrame(data)
-
         # Display the scraped data
-        st.write(df)
+        st.write(data)
 
-# Run the Streamlit app
 if __name__ == "__main__":
-    app()
+    main()
