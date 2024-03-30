@@ -1,40 +1,38 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
+import pandas as pd
+from async_pubmed_scraper import PubMedScraper, parse_args
 
-"""
-# Welcome to Streamlit!
+def app():
+    st.title("Asynchronous PubMed Scraper")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+    # Get user input
+    keywords = st.text_area("Enter keywords (one per line)")
+    start_year = st.number_input("Start year", min_value=1900, value=2019)
+    end_year = st.number_input("End year", min_value=1900, value=2020)
+    num_pages = st.number_input("Number of pages", min_value=1)
+    output_file = st.text_input("Output file name", value="articles.csv")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    # Create a button to trigger the scraping process
+    if st.button("Scrape PubMed"):
+        # Parse user input into command-line arguments
+        args = parse_args([
+            "--pages", str(num_pages),
+            "--start", str(start_year),
+            "--stop", str(end_year),
+            "--output", output_file,
+            "--keywords", keywords.replace("\n", ",")
+        ])
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+        # Create a PubMedScraper instance and run the scraping
+        scraper = PubMedScraper(args)
+        data = scraper.run()
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
+        # Convert the data to a Pandas DataFrame
+        df = pd.DataFrame(data)
 
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
+        # Display the scraped data
+        st.write(df)
 
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+# Run the Streamlit app
+if __name__ == "__main__":
+    app()
