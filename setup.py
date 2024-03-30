@@ -1,15 +1,9 @@
-from setuptools import setup
-from setuptools.extension import Extension
-from Cython.Build import cythonize
+from setuptools import setup, Extension
 import numpy
-
-extensions = [
-    Extension("*", ["*.pyx"],
-              include_dirs=[numpy.get_include()])
-]
 
 setup(
     name="pubmed_scraper",
-    ext_modules=cythonize(extensions),
-    include_dirs=[numpy.get_include()]
+    ext_modules=[Extension("pubmed_scraper", ["pubmed_scraper.py"])],
+    include_dirs=[numpy.get_include()],
+    install_requires=["numpy"]
 )
