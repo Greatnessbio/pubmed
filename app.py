@@ -1,5 +1,5 @@
 import streamlit as st
-from async_pubmed_scraper import PubMedScraper, parse_args
+from pubmed_scraper.async_pubmed_scraper import PubMedScraper, parse_args
 
 def main():
     st.title("Asynchronous PubMed Scraper")
