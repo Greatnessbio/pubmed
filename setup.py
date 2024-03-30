@@ -1,9 +1,17 @@
-from setuptools import setup, Extension
-import numpy
+from setuptools import setup, find_packages
 
 setup(
     name="pubmed_scraper",
-    ext_modules=[Extension("pubmed_scraper", ["pubmed_scraper.py"])],
-    include_dirs=[numpy.get_include()],
-    install_requires=["numpy"]
+    packages=find_packages(),
+    install_requires=[
+        "aiohttp",
+        "asyncio",
+        "beautifulsoup4",
+        "bs4",
+        "lxml",
+        "pandas",
+        "requests",
+        "streamlit",
+        "numpy"
+    ]
 )
